@@ -6,6 +6,8 @@ from flask_socketio import SocketIO, Namespace, emit, join_room, leave_room, \
 from random import random
 from datetime import datetime
 
+from math import exp
+
 async_mode = None
 
 app = Flask(__name__)
@@ -21,8 +23,8 @@ def background_thread(epoch):
         socketio.sleep(2)
         count += 1
         socketio.emit('my_epoch',
-                      {'data': 'Random: {:03f}, Time:{}'.format(round(random() * 100, 3),get_current_datetime()), 
-                       'count': count, 
+                      {'count': count, 
+                       'data': exp(-count),
                        'epoch': epoch['epoch']},
                       namespace='/')
     thread = None
