@@ -1,0 +1,14 @@
+version: "3"
+services:
+  flask:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    restart: always
+    tty: true
+    ports:
+    - 5000:5000
+    volumes:
+    - type: bind
+      source: ./app
+      target: /usr/src/app
