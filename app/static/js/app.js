@@ -18,7 +18,11 @@ $(document).ready(function() {
     // });
 
     $('form#start').submit(function(event) {
-        socket.emit('start', {epoch: $('#epoch').val()});
+        socket.emit('start', {epoch: $('#epoch').val(), func: $('#function').val()});
+        return false;
+    });
+    $('form#Reset').submit(function(event) {
+        resetData()
         return false;
     });
     $('form#disconnect').submit(function(event) {
@@ -31,7 +35,7 @@ $(document).ready(function() {
     const myChart = new Chart(ctx, {
         type: "line",
         data: {
-        datasets: [{ label: "epoch",  }],
+        datasets: [{ label: "func",  }],
         },
         options: {
         borderWidth: 3,
@@ -44,6 +48,12 @@ $(document).ready(function() {
         myChart.data.datasets.forEach((dataset) => {
         dataset.data.push(data);
         });
+        myChart.update();
+    }
+
+    function resetData() {
+        myChart.data.labels = []
+        myChart.data.datasets[0]['data'] = []
         myChart.update();
     }
 

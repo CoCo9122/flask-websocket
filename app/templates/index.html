@@ -15,6 +15,17 @@
         <input type="text" name="epoch" id="epoch" placeholder="Epoch" value="5">
         <input type="submit" value="Start">
     </form>
+    <form>
+        <select size="1" name="function" id="function">
+            <option value="exp">exp(-x)</option>
+            <option value="cos">cos(x)</option>
+            <option value="sin">sin(x)</option>
+            <option value="tanh">tanh(x)</option>
+        </select>
+    </form>
+    <form id="Reset" method="POST" action="#">
+        <input type="submit" value="Reset">
+    </form>
     <form id="disconnect" method="POST" action="#">
         <input type="submit" value="Disconnect">
     </form>

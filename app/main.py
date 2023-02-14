@@ -6,7 +6,7 @@ from flask_socketio import SocketIO, Namespace, emit, join_room, leave_room, \
 from random import random
 from datetime import datetime
 
-from math import exp
+from math import exp, cos, sin, tanh
 
 async_mode = None
 
@@ -15,16 +15,24 @@ app.config['SECRET_KEY'] = 'realtime!'
 socketio = SocketIO(app, async_mode=async_mode)
 thread = None
 thread_lock = Lock()
-
+        
 def background_thread(epoch):
+
+    funcs = {
+        'exp' :exp,
+        'cos' :cos,
+        'sin' :sin,
+        'tanh' : tanh
+    }
+
     count = 0
     global thread
     for i in range(int(epoch['epoch'])):
-        socketio.sleep(2)
+        socketio.sleep(0.5)
         count += 1
         socketio.emit('my_epoch',
-                      {'count': count, 
-                       'data': exp(-count),
+                      {'count': count/10, 
+                       'data': funcs[epoch['func']](count/10),
                        'epoch': epoch['epoch']},
                       namespace='/')
     thread = None
